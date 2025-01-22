@@ -2,9 +2,7 @@ import scrapy
 import logging
 
 class BaseSpider(scrapy.Spider):
-    """
-    Classe base para spiders com lógica compartilhada.
-    """
+    # Classe base para spiders com lógica compartilhada
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate, br, zstd",
@@ -15,19 +13,11 @@ class BaseSpider(scrapy.Spider):
     }
 
     def extract_categories(self, response):
-        """
-        Extrai as categorias do elemento <nav> com o ID especificado.
-
-        Args:
-            response (scrapy.http.Response): A resposta da página inicial.
-
-        Returns:
-            list: Lista de categorias extraídas.
-        """
-        self.logger.info("Procurando categorias no elemento <nav>...")
+        # Extrai as categorias do elemento <nav> com o ID especificado
+        self.logger.info("Procurando categorias no elemento <nav>")
         nav = response.xpath("//nav[@id='carousel-categories-home']")
         if not nav:
-            self.logger.warning("Elemento <nav id='carousel-categories-home'> não encontrado.")
+            self.logger.warning("Elemento <nav id='carousel-categories-home'> não encontrado")
             return []
 
         base_url = "https://www.compra-agora.com/loja/"

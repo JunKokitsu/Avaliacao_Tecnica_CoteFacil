@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 # Defina o diretório de trabalho
-WORKDIR /usr/
+WORKDIR /src/
 
 # Copie os arquivos de dependências
 COPY requirements.txt ./

@@ -2,24 +2,17 @@ from base_spider import BaseSpider
 import scrapy
 
 class CompraAgoraSpiderSpider(BaseSpider):
-    """
-    Spider para extração de categorias e produtos.
-    """
+    # Spider para extração de categorias e produtos
     name = "compra_agora_spider"
     start_urls = ["https://www.compra-agora.com/"]
     url_categorias = []
 
     def parse(self, response):
-        """
-        Processa a página inicial para encontrar categorias e realiza requisições para a API.
-
-        Args:
-            response (scrapy.http.Response): Resposta da página inicial.
-        """
+        # Processa a página inicial para encontrar categorias e realiza requisições para a API
         self.url_categorias = self.extract_categories(response)
         self.logger.info("Categorias encontradas: %s", self.url_categorias)
         if not self.url_categorias:
-            self.logger.warning("Nenhuma categoria foi encontrada. Spider encerrado.")
+            self.logger.warning("Nenhuma categoria foi encontrada")
             return
 
         for categoria in self.url_categorias:
@@ -34,12 +27,7 @@ class CompraAgoraSpiderSpider(BaseSpider):
             )
 
     def parse_paginated_json(self, response):
-        """
-        Processa a resposta JSON da API e extrai informações dos produtos.
-
-        Args:
-            response (scrapy.http.Response): Resposta JSON da API.
-        """
+        # Processa a resposta JSON da API e extrai informações dos produtos
         categoria = response.meta.get("categoria", "Desconhecida")
         page = response.meta.get("page", 1)
         self.logger.info(f"Processando produtos da categoria: {categoria}, página: {page}")
