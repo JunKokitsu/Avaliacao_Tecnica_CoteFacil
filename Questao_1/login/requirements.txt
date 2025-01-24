@@ -1,0 +1,3 @@
+requests
+Bs4
+pynacl

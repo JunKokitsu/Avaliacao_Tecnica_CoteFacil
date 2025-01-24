@@ -1,0 +1,3 @@
+na pasta login use o comando:
+
+docker-
