@@ -24,7 +24,7 @@ Tópico 1 do roteiro da questão 1.
 
 main.py: executa o programa com Python main.py
 
-scraper.py: Identifica os elementos HTML e interage com a pagina adicionando nos campos <input> username e <input> password seus respectivos valores e 'passando' no recaptchav2 para o envio do formúlario.
+scraper.py: Identifica os elementos HTML e interage com a pagina adicionando nos campos <input> username e <input> password seus respectivos valores e 'passando' no recaptcha para o envio do formulário.
 
 decryptor.py: faz o gerenciamento da criptografia das credenciais.
 
