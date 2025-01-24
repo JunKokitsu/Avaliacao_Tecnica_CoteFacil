@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  selenium-hub:
+    image: selenium/hub
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"  # Porta para acessar o Selenium Hub
+
+  chrome-node:
+    image: selenium/node-chrome
+    container_name: chrome-node
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python-app
+    depends_on:
+      - selenium-hub
+    volumes:
+      - ./src:/src
+    environment:
+      - SELENIUM_HOST=selenium-hub
+      - SELENIUM_PORT=4444

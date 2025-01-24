@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/src  
+    working_dir: /src/servimed_scrapy/servimed_scrapy/spiders
+    ipc: host  
+    environment:
+      - PYTHONUNBUFFERED=1 
+    tty: true
