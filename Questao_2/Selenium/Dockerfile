@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-WORKDIR /Selenium/src
+WORKDIR /src/
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["python", "main.py", "511082"]
 

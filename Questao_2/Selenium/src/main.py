@@ -53,7 +53,7 @@ if __name__ == "__main__":
     decrypted_credentials = decryptor.decrypt(encrypted_credentials).split(",")
 
     username, password = decrypted_credentials
-    logging.warning('user:',username,'pass', password)
+    
 
     if not username or not password:
         logging.error("Credenciais não encontradas nas variáveis de ambiente.")
