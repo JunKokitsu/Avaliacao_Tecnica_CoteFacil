@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/src  
+    working_dir: /Selenium/src
+    stdin_open: true # Permite interação no terminal
+    tty: true        # Permite manter o terminal ativo
+    command: tail -f /dev/null # Mantém o container em execução

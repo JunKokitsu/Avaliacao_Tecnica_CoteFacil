@@ -6,6 +6,10 @@ from projectbase import ProjectBase
 from loginmanager import LoginManager
 from ordersearcher import OrderSearcher
 from dataextractor import DataExtractor
+from decryptor import Decryptor
+from nacl import secret
+import base64
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,8 +43,17 @@ if __name__ == "__main__":
         sys.exit(1)
 
     order_id = sys.argv[1]
-    username = ""
-    password = ""
+
+    key_base64 = "FNtN72d3EtAyiiw8ZvBR6XhlrwUmOE6dmPM9+4fmPto="
+    encrypted_credentials = (
+        "CplQqiOlXLizjOLdZPYGaW1rPgzEJQw7EfUZaxF518A4SwmxSKMkVCQ0ej2uqU3ZPW2dY1HsZGW/ROc46m1y6SHn2u1LjgRoheC+d8BxgA=="
+    )
+
+    decryptor = Decryptor(key_base64)
+    decrypted_credentials = decryptor.decrypt(encrypted_credentials).split(",")
+
+    username, password = decrypted_credentials
+    logging.warning('user:',username,'pass', password)
 
     if not username or not password:
         logging.error("Credenciais não encontradas nas variáveis de ambiente.")
