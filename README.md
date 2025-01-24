@@ -12,73 +12,59 @@ Desenvolva um script que interaja com o website https://www.compra-agora.com. Pa
      
   ![Captura de tela 2025-01-24 181736](https://github.com/user-attachments/assets/b1a82b95-5889-49e0-82b1-c17a221eab85)
  
-  4. Capture as seguintes dados de todos os produtos disponíveis: Descrição, Fabricante e URL da imagem no formato JSON.
+  3. Capture as seguintes dados de todos os produtos disponíveis: Descrição, Fabricante e URL da imagem no formato JSON.
    
-### Login
+### Efetuando o Login no site compra-agora.com
 
-Tópico 1 do roteiro da questão 1.
+Resolução do tópico 1 da questão 1.
 
-#### Programa web scraper desenvolvido com Requests e BeatifulSoup para efetuar o login no site compra-agora.com.
+#### Este projeto tem como objetivo simular um login automático no site compra-agora.com, que inclui o desafio de lidar com CAPTCHAs. Para a resolução dos CAPTCHAs, o projeto utiliza a integração com o serviço de terceiros 2captcha. O programa realiza a criptografia dos dados de login e simula o processo de autenticação, mas não conclui totalmente a operação, pois a contratação efetiva do serviço 2captcha não foi realizada. 
 
-#### Estrutura:
+A aplicação Python carrega páginas web utilizando Requests e BeautifulSoup, preenche o formulário de login com as credenciais criptografadas, simula a integração da API do serviço 2Captcha para resolver o reCAPTCHA e submete o formulário.
 
-main.py: executa o programa com Python main.py
-
-scraper.py: Identifica os elementos HTML e interage com a pagina adicionando nos campos <input> username e <input> password seus respectivos valores e 'passando' no recaptcha para o envio do formulário.
-
-decryptor.py: faz o gerenciamento da criptografia das credenciais.
 
 #### Como executar a aplicação Login da questão 1:
 
-##### Executar o programa:
-  dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:  
+
+Dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:  
   
     docker-compose up --build -d login_app //este comando irá executar o programa que fará o login
 
 ##### acessar os logs da execução do programa em tempo real:
-  dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
+Para acessar os logs da execução, digitar:  
   
     docker-compose logs -f login_app
 
-##### Parar a execução da aplicação:
-  dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
+##### parar a execução da aplicação:
+No diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
 
     docker-compose down
 
-### Extração de dados
-Tópico 2 e 3 do roteiro da questão 1.
 
-#### Programa web scraper desenvolvido com Scrapy para extrair todos os produtos do site compra-agora.com pela api no formato JSON.
+### Extração de dados do site www.compra-agora.com
+Resolucação dos tópicos 2 e 3 da questão 1.
 
-#### Estrutura:
+#### Este projeto utiliza Scrapy para realizar a coleta de categorias e produtos do site Compra-Agora.com, incluindo o consumo de uma API que retorna informações detalhadas sobre os produtos em formato JSON.
 
-main.py: executa o Spider principal com Python main.py.
-
-compra_agora_spider.py: Spider responsável por extrair categorias, coletar produtos da API e gerenciar paginação.
-
-base_spider.py: Classe base com lógica compartilhada, incluindo configuração de headers e extração de categorias.
-
+Começa pela identificação de categorias disponíveis na página inicial, filtrando-as com base em uma lista de exclusão. A partir dessas categorias, o programa faz requisições à API do site para coletar informações sobre produtos, como descrição, fabricante e URL das imagens. Ele processa os dados em formato JSON e continua a busca de produtos de forma paginada até que todos os itens de uma categoria sejam extraídos. Por fim, permite a execução automatizada do processo sem configurações adicionais.
 
 #### Como executar a aplicação Extração dos dados da questão 1
 
 ##### Executar o programa:
-  dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
+Dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
   
     docker-compose up --build -d extracao_dados_app // este comando irá executar o programa que fará a extração dos dados.
 
 ##### acessar os logs da execução do programa em tempo real: 
-  dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
+Dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
   
     docker-compose logs -f extracao_dados_app
 
 ##### Parar a execução da aplicação:
-  dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
+No diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
 
     docker-compose down
 
-#### Desafios:
-
-  - não foi possível validar o captcha no login.
 
 
 ## Questão 2
@@ -93,35 +79,27 @@ A solução deve ser implementada utilizando a linguagem Python na versão 3.6+ 
   3. Pesquise o pedido que o usuário inputou nos argumentos do script. Traga o retorno de faturamento no formato json contendo os campos: Motivo, itens [codigo_produto, descricao, quantidade_faturada]. Retorne um erro caso não o encontre o pedido no site.
      
 
-#### Programa web scraper desenvolvido com Scrapy e Scrapy-Playwright que faz o login, interage com a página e faz a extração dos pedidos do site servimed.com.
+#### Este projeto é um web scraper desenvolvido com a biblioteca Scrapy e integrado ao Playwright para a automação de interações em sites gerados por JavaScript. Ele tem como objetivo acessar o sistema de pedidos eletrônicos da Servimed, realizar login e buscar informações de um pedido específico.
 
-#### Estrutura:
+O processo de login é gerenciado pela classe Login, que autentica o usuário e valida o acesso ao sistema. O programa permite a busca de pedidos a partir de um ID fornecido via linha de comando, incluindo informações detalhadas sobre os itens do pedido, como código, descrição e quantidade faturada, utilizando seletores CSS e XPath para localizar elementos específicos na página. Ele também conta com integração ao Playwright, possibilitando o manuseio de páginas dinâmicas e elementos JavaScript, além de gerenciar modais e eventos complexos, como botões de confirmação. Os dados coletados são salvos em formato JSON.
 
-main.py: executa o Spider principal com Python main.py <código_do_pedido>.
+### Dificuldades
 
-login.py: Interage com a página de login, insere as credenciais nos <input>'s envia o formulário para executar o login.
-
-orderextractor.py: Interage com o site e busca o pedido depois de efetuar o login.
-
-orders.py: Faz a extração dos dados do pedido.
-
-credentialmanager.py: gerencia a descriptografia e a validação das crendencias na hora do login.
-
-decryptor.py: faz o gerenciamento da criptografia das credenciais.
-
+  Em Scrapy não foi possível pegar o valor do <input> Motivo dentro do modal detalhes. Retornando NULL em todas as execuções.
 
 #### Como executar a aplicação Extração dos dados da questão 1
 
 ##### Executar o programa:
-  Dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
+Dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando no terminal:
         
     docker-compose up --build -d extract_pedidos_app
   
-  Depois execute o comando para interagir no container:
-  
+##### Depois execute o comando para interagir no container:
+Dentro do diretório /Avaliacao_Tecnica_CoteFacil execute o comando para interagir com o container:
+
     docker exec -it avaliacao_tecnica_cotefacil-extract_pedidos_app-1 bash
 
-  Execute o programa:
+##### Execute o programa de extração de dados no bash do container:
   
     python main.py <código_do_pedio>
 
@@ -130,20 +108,20 @@ decryptor.py: faz o gerenciamento da criptografia das credenciais.
 
     docker-compose down
 
+
+    
 ### Adicional da Questão 2
 
-Existe outra aplicação feita em Selenium, nela o output consegue pegar o Motivo do pedido.
+Existe outra aplicação feita em Selenium (Questao_2/Selenium), onde foi possível pegar o Motivo do pedido.
 
-ps.: precisa ser executado com o ambiente virtual.
+Obs: Deve ser executado no ambiente virtual.
 
-#### Desafios:
 
-  - Em scrapy não foi possível pegar o valor do <input> Motivo dentro do modal detalhes. Retornando NULL todas as execuções.
     
 
 ## Questão 3
 
-Escreva um script Python que recebe como parametro um número n inteiro positivo e imprime no console o n-ésimo valor correspondente da sequencia de Fibonacci. Obs.: O problema deve ser resolvido utilizando recursão. 
+Escreva um script Python que recebe como parâmetro um número n inteiro positivo e imprime no console o n-ésimo valor correspondente da sequência de Fibonacci. Obs.: O problema deve ser resolvido utilizando recursão. 
 
 #### A sequência de Fibonacci é uma série de números naturais em que cada número é a soma dos dois anteriores, começando com 0 e 1. Portanto, a sequência é formada pelos números: 0, 1, 1, 2, 3, 5, 8, 13, 21 e assim por diante. Na terminologia matemática, esta série representa um problema clássico de recursão, uma vez que cada termo da sequência é uma função dos termos precedentes:
 
@@ -159,7 +137,7 @@ F(n) = F(n-1) + F(n-2)
 
 #### Programa python para cálculo do n-ésimo termo da série de Fibonacci usando recursão:
 
-### Como executar o programa:
+### Como executar o programa: ir para o diretório Questao_3
 
 #### Para executar digitar: python fibonacci.py 20
 
@@ -171,9 +149,16 @@ Onde fibonacci.py é o nome do programa python e 20 corresponde à posição do 
 Explique o problema que poderia acontecer com o programa desenvolvido na questão 1 ao passar como entrada n = 50.
 
 
-O algoritmo mais simples para cálculo da série de Fibonacci usando recursão se baseia na criação de uma função recursiva que chama quantas vezes forem necessárias até que se atinja o caso base, F(0) ou F(1). O programa fibonacci.py desenvolvido na questão 4 é um exemplo desse algoritmo. Desta forma, problemas menores mas idênticos, são executados de forma repetida, tornando a computação mais pesada conforme n fica maior (complexidade na ordem de 2^n). O tempo de execução cresce exponencialmente porque a função calcula muitos subprocessos idênticos repetidamente. Quando passamos o valor 50 como parâmetro, o script vai demorar muito tempo para executar ou até nem executar, dependendo da capacidade da máquina.
+O algoritmo mais simples para cálculo da série de Fibonacci usando recursão se baseia na criação de uma função recursiva que chama quantas vezes forem necessárias até que se atinja o caso base, F(0) ou F(1). O programa fibonacci.py desenvolvido na questão 4 é um exemplo desse algoritmo. Desta forma, problemas menores mas idênticos, são executados de forma repetida, tornando a computação mais pesada conforme n fica maior (complexidade na ordem de 2^n). O tempo de execução cresce exponencialmente porque a função calcula muitos subprocessos idênticos repetidamente. Quando passamos o valor 50 como parâmetro, o script demora muito tempo para executar ou até nem executa, dependendo da capacidade da máquina.
 
-Uma forma de tornar o algoritmo recursivo mais eficiente é armazenando os resultados de chamadas anteriores em uma variável do tipo lista. Assim, quando uma mesma entrada ocorre novamente, basta procurar o resultado correspondente no vetor e retorná-lo, sem precisar executar novamente, reduzindo a complexidade de tempo de execução de O(2^n) para O(n).
+Uma forma de tornar o algoritmo recursivo mais eficiente é armazenando os resultados de chamadas anteriores em uma variável do tipo lista. Dessa forma, quando uma mesma entrada ocorre novamente, basta procurar o resultado correspondente no vetor e retorná-lo, sem precisar executar novamente, reduzindo a complexidade do tempo de execução de O(2^n) para O(n). O programa fibonacci2.py foi implementado com essa otimização.
+
+### Como executar o programa: ir para o diretório Questao_4
+
+#### Para executar, digitar: python fibonacci2.py 60
+
+Onde fibonacci.py é o nome do programa python e 60 corresponde à posição do termo na sequência de Fibonacci.
+
 
 
 ## Questão 5
