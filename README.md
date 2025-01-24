@@ -10,9 +10,8 @@ Desenvolva um script que interaja com o website https://www.compra-agora.com. Pa
      
   2. Entre em cada categoria:
      
-    ![image](https://github.com/user-attachments/assets/2aa881b9-08da-4098-af81-2feaa8943801)
-
-     
+    ![Captura de tela 2025-01-24 181736](https://github.com/user-attachments/assets/b1a82b95-5889-49e0-82b1-c17a221eab85)
+ 
   4. Capture as seguintes dados de todos os produtos disponíveis: Descrição, Fabricante e URL da imagem no formato JSON.
    
 ### Login
