@@ -1,0 +1,9 @@
+Use o comando para criar a imagem: 
+    docker build -t imagem_questao1_extracaodados .
+
+execute o container: 
+no windows: 
+    docker run -it --rm -v ${PWD}/src:/src -w /src/compra_agora_scrapy/compra_agora_scrapy/spiders imagem_questao1_extracaodados python main.py
+
+no linux: 
+    docker run -it --rm -v $(pwd)/src:/src -w /src/compra_agora_scrapy/compra_agora_scrapy/spiders imagem_questao1_extracaodados python main.py
