@@ -1,15 +1,10 @@
 {
-    "Motivo": "CL.BLOQ-12BLOQUEIO cliente - 12                                                                               ",
+    "Motivo": null,
     "Itens": [
         {
-            "Código": "67768",
-            "Descrição": "ACCUVIT 30 CP T",
-            "Qtd. Faturada": "0"
-        },
-        {
-            "Código": "335070",
-            "Descrição": "ACHEFLAN CREM 60 GR T",
-            "Qtd. Faturada": "0"
+            "Código": "203361",
+            "Descrição": "ALGODAO APOLO ROLO 250G",
+            "Qtd. Faturada": "1"
         }
     ]
 }

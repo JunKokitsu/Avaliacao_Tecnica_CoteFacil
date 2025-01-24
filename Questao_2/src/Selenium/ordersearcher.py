@@ -23,19 +23,8 @@ class OrderSearcher:
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-primary"))
             )
             search_button.click()
-
-            # Verifica se o <p> com o texto de alerta está presente
-            try:
-                alert_message = WebDriverWait(self.driver, 5).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, "p.alert.alert-info"))
-                )
-                alert_text = alert_message.text
-                logging.info(f"Mensagem de alerta encontrada: {alert_text}")
-            except Exception:
-                logging.info("Nenhuma mensagem de alerta encontrada, continuando execução.")
-
-            # Continua execução normal
-            order_button = WebDriverWait(self.driver, 10).until(
+        
+            order_button = WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-icon[title='informações do pedido']"))
             )
             order_button.click()

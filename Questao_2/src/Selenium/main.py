@@ -39,8 +39,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     order_id = sys.argv[1]
-    username = "juliano@farmaprevonline.com.br"
-    password = "a007299A"
+    username = ""
+    password = ""
 
     if not username or not password:
         logging.error("Credenciais não encontradas nas variáveis de ambiente.")
