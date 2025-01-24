@@ -14,10 +14,10 @@ class BaseSpider(scrapy.Spider):
 
     def extract_categories(self, response):
         # Extrai as categorias do elemento <nav> com o ID especificado
-        self.logger.info("Procurando categorias no elemento <nav>")
+        logging.info("Procurando categorias no elemento <nav>")
         nav = response.xpath("//nav[@id='carousel-categories-home']")
         if not nav:
-            self.logger.warning("Elemento <nav id='carousel-categories-home'> não encontrado")
+            logging.warning("Elemento <nav id='carousel-categories-home'> não encontrado")
             return []
 
         base_url = "https://www.compra-agora.com/loja/"

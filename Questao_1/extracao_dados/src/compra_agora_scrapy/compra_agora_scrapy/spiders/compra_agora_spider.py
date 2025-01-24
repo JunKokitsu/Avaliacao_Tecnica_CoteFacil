@@ -1,6 +1,6 @@
 from base_spider import BaseSpider
 import scrapy
-
+import logging
 class CompraAgoraSpiderSpider(BaseSpider):
     # Spider para extração de categorias e produtos
     name = "compra_agora_spider"
@@ -10,9 +10,9 @@ class CompraAgoraSpiderSpider(BaseSpider):
     def parse(self, response):
         # Processa a página inicial para encontrar categorias e realiza requisições para a API
         self.url_categorias = self.extract_categories(response)
-        self.logger.info("Categorias encontradas: %s", self.url_categorias)
+        logging.info("Categorias encontradas: %s", self.url_categorias)
         if not self.url_categorias:
-            self.logger.warning("Nenhuma categoria foi encontrada")
+            logging.warning("Nenhuma categoria foi encontrada")
             return
 
         for categoria in self.url_categorias:
@@ -30,16 +30,16 @@ class CompraAgoraSpiderSpider(BaseSpider):
         # Processa a resposta JSON da API e extrai informações dos produtos
         categoria = response.meta.get("categoria", "Desconhecida")
         page = response.meta.get("page", 1)
-        self.logger.info(f"Processando produtos da categoria: {categoria}, página: {page}")
+        logging.info(f"Processando produtos da categoria: {categoria}, página: {page}")
         
         data = response.json()
         produtos = data.get("produtos", [])
 
         if not produtos:
-            self.logger.info(f"Nenhum produto encontrado na categoria {categoria}, página {page}. Finalizando a categoria.")
+            logging.info(f"Nenhum produto encontrado na categoria {categoria}, página {page}. Finalizando a categoria.")
             return
 
-        self.logger.info(f"Encontrados {len(produtos)} produtos na categoria {categoria}, página {page}.")
+        logging.info(f"Encontrados {len(produtos)} produtos na categoria {categoria}, página {page}.")
         for idx, produto in enumerate(produtos, start=1):
             variacoes = produto.get("Variacoes", [])
             descricao = (
@@ -54,7 +54,7 @@ class CompraAgoraSpiderSpider(BaseSpider):
                 "Fabricante": produto.get("Fabricante", "Fabricante não disponível"),
                 "imagem_url": imagem_url,
             }
-            self.logger.info(item)
+            logging.info(item)
             yield item
 
         # Incrementa a página e faz nova requisição

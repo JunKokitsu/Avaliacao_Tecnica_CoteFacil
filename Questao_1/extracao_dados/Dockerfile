@@ -11,4 +11,4 @@ COPY . .
 
 WORKDIR /src/compra_agora_scrapy/compra_agora_scrapy/spiders
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["python", "main.py"]

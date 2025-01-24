@@ -32,9 +32,11 @@ if __name__ == "__main__":
         soup_post = scraper.submit_form()
         if soup_post:
             user_span = soup_post.find("span", {"class": "nome-usuario"})
-            if user_span:
-                logging.info(f"Nome do usuário encontrado: {user_span.get_text(strip=True)}")
+            nome_usuario = user_span.get_text(strip=True)
+            if "login" in nome_usuario.lower() or "cadastre-se" in nome_usuario.lower():
+                logging.warning("Não foi possível acessar a conta.")
             else:
-                logging.warning("Elemento com o nome do usuário não encontrado.")
+                logging.info("Login executado com sucesso! ", nome_usuario )
+
     except Exception as e:
         logging.critical(f"Erro durante a execução: {e}")
