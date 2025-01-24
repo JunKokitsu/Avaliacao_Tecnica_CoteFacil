@@ -1,6 +1,8 @@
 
 version: "3.8"
 services:
+
+# Questão 1
   extracao_dados_app:
     build:
       context: ./Questao_1/extracao_dados
@@ -19,3 +21,18 @@ services:
       - ./Questao_1/login/src:/src  
     working_dir: /src
     tty: true
+
+# Questão 2
+  extract_pedidos_app:
+    build:
+      context: ./Questao_2/Scrapy-playwright
+      dockerfile: Dockerfile
+    volumes:
+      - ./Questao_2/Scrapy-playwright/src:/src  
+    working_dir: /src/servimed_scrapy/servimed_scrapy/spiders
+    ipc: host  
+    # environment:
+    #   - PYTHONUNBUFFERED=1 
+    tty: true
+
+

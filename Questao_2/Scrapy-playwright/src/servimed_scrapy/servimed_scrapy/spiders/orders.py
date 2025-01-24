@@ -75,9 +75,7 @@ class orderSpider(scrapy.Spider):
 
             output = {"Motivo": motivo_rejeicao, "Itens": itens}
             self.save_data_to_json(output)
-            logging.info('------------------------------------------------------------------------------RESULTADO------------------------------------------------------------------------------------')
             logging.info(output)
-            logging.info('---------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
         except Exception as e:
             logging.error(f"Erro ao extrair dados: {e}")
 

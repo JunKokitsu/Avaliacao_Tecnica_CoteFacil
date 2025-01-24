@@ -26,8 +26,15 @@ class OrderExtractor:
             await page.fill('input[placeholder*="Digite o código"]', self.order_id)
             await page.click('button.btn.btn-primary')
             await page.wait_for_load_state("networkidle")
-            logging.info("Pedido buscado com sucesso.")
 
+            element = await page.query_selector("p.alert.alert-info")
+            if element:
+                element_text = await element.text_content()
+                logging.info(f"mensagem: {element_text}")
+                raise Exception("Esse pedido não existe")
+            else: 
+                logging.info("Pedido buscado com sucesso.")
+                
             # Abrir detalhes
             await page.click('button.btn.btn-icon[title="informações do pedido"]')
             logging.info("detalhes.")

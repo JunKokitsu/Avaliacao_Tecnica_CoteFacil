@@ -1,12 +1,16 @@
 import argparse
 from scrapy.crawler import CrawlerProcess
 from orders import  orderSpider
-
+import logging
 if __name__ == "__main__":
+    
     parser = argparse.ArgumentParser(description="Inicie o orderSpider com um ID de pedido.")
+
     parser.add_argument("order_id", help="ID do pedido a ser buscado")
+
     args = parser.parse_args()
 
+   
     process = CrawlerProcess({
         'USER_AGENT': 'Mozilla/5.0',
         'DOWNLOAD_HANDLERS': {
