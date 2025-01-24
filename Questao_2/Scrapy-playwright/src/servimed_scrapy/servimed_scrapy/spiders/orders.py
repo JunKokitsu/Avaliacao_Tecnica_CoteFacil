@@ -7,6 +7,12 @@ from orderextractor import OrderExtractor
 
 
 class orderSpider(scrapy.Spider):
+    custom_settings = {
+        "PLAYWRIGHT_BROWSER_TYPE": "chromium",
+        "PLAYWRIGHT_LAUNCH_OPTIONS": {
+            "headless": True,  # Certifique-se de que está como True
+        },
+    }
     name = "servimed_spider"
 
     def __init__(self, order_id, *args, **kwargs):
@@ -32,6 +38,7 @@ class orderSpider(scrapy.Spider):
 
     async def handle_login(self, response):
         page = response.meta["playwright_page"]
+        #logging.info('page', page)
         try:
             await self.login_handler.login(page)
             scrapy_response = await self.order_extractor.extract_order_info(page)
@@ -43,8 +50,17 @@ class orderSpider(scrapy.Spider):
 
     def extract_table_data(self, response):
         try:
-            motivo_rejeicao = response.xpath("//input[@class='form-control'][@type='text'][@disabled]/@value").get()
-            logging.info(f"Motivo de rejeição: {motivo_rejeicao}")
+            # Busca o motivo
+            div_motivo_rejeicao = response.xpath("//label[text()='Motivo da Rejeição']/parent::div")
+            if div_motivo_rejeicao:
+                input_motivo_rejeicao = div_motivo_rejeicao.xpath(".//input[@class='form-control']")
+                motivo_rejeicao = input_motivo_rejeicao.xpath("@value").get()
+                if motivo_rejeicao:
+                    logging.info(f"Motivo de rejeição: {motivo_rejeicao}")
+                else:
+                    logging.warning("Campo de input encontrado, mas sem valor.")
+            else:
+                logging.warning("Elemento 'Motivo da Rejeição' não encontrado.")
 
             # Extração da tabela de itens
             itens = []

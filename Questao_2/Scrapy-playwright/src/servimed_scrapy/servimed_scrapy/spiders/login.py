@@ -12,7 +12,12 @@ class Login:
             await page.fill('input[name="username"]', self.username)
             await page.fill('input[name="password"]', self.password)
             await page.click('.btn.btn-block.btn-success')
-            logging.info("Login realizado com sucesso.")
+            await page.wait_for_load_state('networkidle')  
+            if "login" in page.url:  
+                logging.error("Login não realizado. Verifique suas credenciais.")
+            else:
+                logging.info("Login realizado com sucesso.")
+                
         except Exception as e:
             logging.error(f"Erro durante o login: {e}")
             raise

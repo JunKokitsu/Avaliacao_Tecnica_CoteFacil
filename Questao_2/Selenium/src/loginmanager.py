@@ -24,14 +24,14 @@ class LoginManager:
             logging.info('Login realizado com sucesso.')
 
             try:
-                # Verifica se o elemento está presente e clicável dentro do tempo limite
+               
                 confirm_button = WebDriverWait(self.driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, '.swal2-confirm.swal2-styled'))
                 )
                 confirm_button.click()
                 logging.info('Confirmação do modal realizada com sucesso.')
             except TimeoutException:
-                # Caso o elemento não exista, segue o processo normal
+                
                 logging.info('modal versão não encontrado, continuando o processo.')
 
         except Exception as e:

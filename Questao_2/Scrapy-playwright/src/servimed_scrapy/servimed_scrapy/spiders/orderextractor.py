@@ -12,12 +12,15 @@ class OrderExtractor:
             pedidos_url = "https://pedidoeletronico.servimed.com.br/pedidos"
             await page.goto(pedidos_url)
             logging.info("Página de pedidos acessada.")
-
+            
             # Confirmar modal
-            confirm_button = await page.query_selector('button.swal2-confirm.swal2-styled')
+            #confirm_button = await page.query_selector('button.swal2-confirm.swal2-styled')
+            confirm_button = await page.wait_for_selector('button.swal2-confirm.swal2-styled', timeout=7000)
             if confirm_button:
                 await confirm_button.click()
                 logging.info("Modal de confirmação fechado.")
+            else:
+                logging.info("Modal de confirmação não encontrado, continuando o processo.")
 
             # Buscar pedido
             await page.fill('input[placeholder*="Digite o código"]', self.order_id)
@@ -27,7 +30,13 @@ class OrderExtractor:
 
             # Abrir detalhes
             await page.click('button.btn.btn-icon[title="informações do pedido"]')
+            logging.info("detalhes.")
+            
+            
+            #espera o modal aparecer
+            await page.wait_for_selector('modal-container.modal.fade.show', timeout=7000)
             await page.wait_for_load_state("networkidle")
+
             html = await page.content()
             return scrapy.http.HtmlResponse(
                 url=page.url, body=html, encoding="utf-8"

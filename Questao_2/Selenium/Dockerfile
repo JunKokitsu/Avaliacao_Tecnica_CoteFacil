@@ -11,5 +11,5 @@ COPY . .
 
 WORKDIR /src/
 
-CMD ["python", "main.py", "511082"]
+CMD ["tail", "-f", "/dev/null"]
 
